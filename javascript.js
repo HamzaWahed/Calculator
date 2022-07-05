@@ -38,55 +38,60 @@ function operate(operator, num1, num2){
     return operator(num1,num2);
 }
 
-function showNumberHelper(value){
-    let num1 = null;
-    let num2 = null;
-    let operator = null;
+function appendNumber(){
     const display = document.querySelector('.display');
-    if(value==='='){
-        display.innerHTML(operate(operator,num1,num2));
+    for(let i=0;i<arguments.length;i++){
+        if(operator!==null){
+            num2 += arguments[i]
+        }else{
+            num1 += arguments[i];
+        }   
     }
 
-    if(num1 != null && operator == null){
-        operator = value;
-    }else if(num1 != null && operator != null){
-        num2 = value;
+    if(operator!==null){
+        display.innerHTML = num2;
     }else{
-        num1 = value;
+        display.innerHTML = num1;
     }
-    console.log(num1);
+    
 }
 
-function showNumber(){
-    const numbers = document.querySelectorAll('.numbers');
-    numbers.forEach(element => {
-        element.addEventListener('click', event => showNumberHelper(element.innerHTML))
-    });
+function displayValue(){
+    const btn = document.querySelectorAll('.numbers');
+    btn.forEach(element =>
+        element.addEventListener('click', event =>
+        appendNumber(element.innerHTML)));
 }
 
-function getOperator(){
-    const operators = document.querySelectorAll('.operator');
-    operators.forEach(element => {
-        element.addEventListener('click', event => getOperatorFunction(element.innerHTML))
-    });
+function displayOperators(){
+    const btn = document.querySelectorAll('.operator');
+    btn.forEach(element =>
+        element.addEventListener('click', event =>
+        getOperatorFunction(element.innerHTML)));
 }
 
-function getOperatorFunction(operator){
-    switch(operator){
+function getOperatorFunction(value){
+    switch(value){
         case "+":
-            return add();
+            operator = add;
+            break;
         case "-":
-            return subtract();
+            operator = subtract;
+            break;
         case "×":
-            return multiply();
+            operator = multiply;
+            break;
         case "÷":
-            return divide();
+            operator = divide;
+            break;
         case "=":
-            return "equals";
-        case "C":
-            return "clear";
+            console.log(operator(Number(num1),Number(num2)));
+            break;
     }
 }
 
-showNumber();
-getOperator();
+let num1 = "";
+let num2 = "";
+let operator = null;
+displayValue();
+displayOperators();
