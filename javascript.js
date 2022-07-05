@@ -37,3 +37,15 @@ function divide(){
 function operate(operator, num1, num2){
     return operator(num1,num2);
 }
+
+function showNumberHelper(value){
+    const display = document.querySelector('.display');
+    display.innerHTML = value;
+}
+
+function showNumber(){
+    const numbers = document.querySelectorAll('.numbers');
+    numbers.forEach(element => {
+        element.addEventListener('click', event => showNumberHelper(element.innerHTML))
+    });
+}
