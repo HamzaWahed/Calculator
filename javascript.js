@@ -39,7 +39,7 @@ function operate(operator, num1, num2){
 }
 
 function appendNumber(){
-    const display = document.querySelector('.display');
+    let display = document.querySelector('.display');
     for(let i=0;i<arguments.length;i++){
         if(operator!==null){
             num2 += arguments[i]
@@ -71,6 +71,7 @@ function displayOperators(){
 }
 
 function getOperatorFunction(value){
+    let display = document.querySelector('.display');
     switch(value){
         case "+":
             operator = add;
@@ -85,9 +86,20 @@ function getOperatorFunction(value){
             operator = divide;
             break;
         case "=":
-            console.log(operator(Number(num1),Number(num2)));
+            display.innerHTML = operator(Number(num1),Number(num2));
+            break;
+        case "C":
+            clear();
             break;
     }
+}
+
+function clear(){
+    let display = document.querySelector('.display');
+    display.innerHTML = "";
+    num1="";
+    num2="";
+    operator=null;
 }
 
 let num1 = "";
