@@ -72,6 +72,14 @@ function displayOperators(){
 
 function getOperatorFunction(value){
     let display = document.querySelector('.display');
+
+    if(operator !== null && value!=="="){
+        let result = operate(operator,Number(num1),Number(num2));
+        display.innerHTML = result;
+        num1=result;
+        num2="";
+    }
+
     switch(value){
         case "+":
             operator = add;
@@ -86,7 +94,7 @@ function getOperatorFunction(value){
             operator = divide;
             break;
         case "=":
-            display.innerHTML = operator(Number(num1),Number(num2));
+            display.innerHTML = operate(operator,Number(num1),Number(num2));
             break;
         case "C":
             clear();
